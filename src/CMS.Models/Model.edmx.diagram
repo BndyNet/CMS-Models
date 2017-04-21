@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4f2e8889417a4662bdf6d87ea38c2d57" Name="Diagram1" DisplayType="true" ZoomLevel="111" >
+        <EntityTypeShape EntityType="Model.BlockInfo" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.NavInfo" Width="2.25" PointX="0.5" PointY="9.25" />
+        <EntityTypeShape EntityType="Model.Article" Width="2" PointX="3.125" PointY="5.375" />
+        <EntityTypeShape EntityType="Model.ArticleCategory" Width="1.875" PointX="0.5" PointY="5.875" />
+        <EntityTypeShape EntityType="Model.Comment" Width="2" PointX="3.25" PointY="9.25" />
+        <EntityTypeShape EntityType="Model.SinglePage" Width="1.875" PointX="5.75" PointY="9.25" />
+        <EntityTypeShape EntityType="Model.User" Width="1.875" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="Model.Attachment" Width="2" PointX="8.125" PointY="9.25" />
+        <EntityTypeShape EntityType="Model.UserLoginHistory" Width="1.75" PointX="5.75" PointY="2.75" />
+        <AssociationConnector Association="Model.UserUserLoginHistory" />
+        <AssociationConnector Association="Model.ArticleCategoryArticle" />
+        <EntityTypeShape EntityType="Model.Link" Width="1.5" PointX="11.25" PointY="2.875" />
+        <EntityTypeShape EntityType="Model.UserRights" Width="1.75" PointX="5.75" PointY="0.625" />
+        <EntityTypeShape EntityType="Model.AppException" Width="1.5" PointX="5.875" PointY="13" />
+        <EntityTypeShape EntityType="Model.ArticleAttributeDefinition" Width="1.875" PointX="5.625" PointY="5.375" />
+        <EntityTypeShape EntityType="Model.ArticleAttributeValue" Width="1.875" PointX="7.875" PointY="5.375" />
+        <AssociationConnector Association="Model.ArticleAttributeDefinitionArticleAttributeValue" />
+        <EntityTypeShape EntityType="Model.Resource" Width="2.5" PointX="2.875" PointY="13" />
+        <EntityTypeShape EntityType="Model.ResourceDirectory" Width="1.75" PointX="0.5" PointY="13" />
+        <EntityTypeShape EntityType="Model.UserGroup" Width="1.5" PointX="0.5" PointY="1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,800 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="BlockInfoes" EntityType="Model.Store.BlockInfoes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="NavInfoes" EntityType="Model.Store.NavInfoes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Articles" EntityType="Model.Store.Articles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ArticleCategories" EntityType="Model.Store.ArticleCategories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Comments" EntityType="Model.Store.Comments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SinglePages" EntityType="Model.Store.SinglePages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="Model.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Attachments" EntityType="Model.Store.Attachments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserLoginHistories" EntityType="Model.Store.UserLoginHistories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Links" EntityType="Model.Store.Links" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserRights" EntityType="Model.Store.UserRights" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AppExceptions" EntityType="Model.Store.AppExceptions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ArticleAttributeDefinitions" EntityType="Model.Store.ArticleAttributeDefinitions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ArticleAttributeValues" EntityType="Model.Store.ArticleAttributeValues" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Resources" EntityType="Model.Store.Resources" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ResourceDirectories" EntityType="Model.Store.ResourceDirectories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserGroups" EntityType="Model.Store.UserGroups" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserUserLoginHistory" Association="Model.Store.UserUserLoginHistory">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserLoginHistory" EntitySet="UserLoginHistories" />
+    </AssociationSet>
+    <AssociationSet Name="ArticleCategoryArticle" Association="Model.Store.ArticleCategoryArticle">
+      <End Role="ArticleCategory" EntitySet="ArticleCategories" />
+      <End Role="Article" EntitySet="Articles" />
+    </AssociationSet>
+    <AssociationSet Name="ArticleAttributeDefinitionArticleAttributeValue" Association="Model.Store.ArticleAttributeDefinitionArticleAttributeValue">
+      <End Role="ArticleAttributeDefinition" EntitySet="ArticleAttributeDefinitions" />
+      <End Role="ArticleAttributeValue" EntitySet="ArticleAttributeValues" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="BlockInfoes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NavInfoes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NavText" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NavShortText" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="NavIcon" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="NavUri" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="NavType" Type="smallint" Nullable="false" />
+    <Property Name="ContentType" Type="int" Nullable="false" />
+    <Property Name="ParentNavId" Type="int" Nullable="true" />
+    <Property Name="DisplayOrder" Type="int" Nullable="false" />
+    <Property Name="IsHidden" Type="bit" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Articles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Pictures" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Views" Type="int" Nullable="false" />
+    <Property Name="EnableComment" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="EnableAttachment" Type="bit" Nullable="true" />
+    <Property Name="HasImageAttachments" Type="bit" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="true" />
+    <Property Name="UserGroupId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="ArticleCategories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EnableComment" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="EnableAttachment" Type="bit" Nullable="false" />
+    <Property Name="DisplayOrder" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Comments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="RefCommentId" Type="int" Nullable="true" />
+    <Property Name="ClientIP" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="BOId" Type="int" Nullable="false" />
+    <Property Name="BOType" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SinglePages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Views" Type="int" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="EnableComment" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="EnableAttachment" Type="bit" Nullable="true" />
+    <Property Name="HasImageAttachments" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LoginName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="RealName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Role" Type="int" Nullable="false" />
+    <Property Name="GroupIds" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Enabled" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Attachments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="FileExtensionName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="FilePath" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="UploadedDate" Type="datetime" Nullable="false" />
+    <Property Name="BOId" Type="int" Nullable="true" />
+    <Property Name="BOType" Type="int" Nullable="true" />
+    <Property Name="IsImage" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserLoginHistories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="ClientIP" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Browser" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="LoggedOn" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Links">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="LinkUrl" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="LinkImage" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="DisplayOrder" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserRights">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="BOId" Type="int" Nullable="false" />
+    <Property Name="BOType" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AppExceptions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Message" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Detail" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="OccuredDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ArticleAttributeDefinitions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ArticleCategoryId" Type="int" Nullable="false" />
+    <Property Name="AttrName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="InitialValue" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="AttrDescription" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="DisplayOrder" Type="int" Nullable="true" />
+    <Property Name="ValueType" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ArticleAttributeValues">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ArticleId" Type="int" Nullable="false" />
+    <Property Name="AttrId" Type="int" Nullable="false" />
+    <Property Name="AttrValue" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Resources">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="FileExtensionName" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="FilePath" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="true" />
+    <Property Name="UploadBy" Type="int" Nullable="true" />
+    <Property Name="UploadUser" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="GroupIds" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="DirectoryId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="ResourceDirectories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DirectoryName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ParentDirectoryId" Type="int" Nullable="true" />
+    <Property Name="DepartmentId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserGroups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="UserUserLoginHistory">
+    <End Role="User" Type="Model.Store.Users" Multiplicity="1" />
+    <End Role="UserLoginHistory" Type="Model.Store.UserLoginHistories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserLoginHistory">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ArticleCategoryArticle">
+    <End Role="ArticleCategory" Type="Model.Store.ArticleCategories" Multiplicity="1" />
+    <End Role="Article" Type="Model.Store.Articles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArticleCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Article">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ArticleAttributeDefinitionArticleAttributeValue">
+    <End Role="ArticleAttributeDefinition" Type="Model.Store.ArticleAttributeDefinitions" Multiplicity="1" />
+    <End Role="ArticleAttributeValue" Type="Model.Store.ArticleAttributeValues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArticleAttributeDefinition">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ArticleAttributeValue">
+        <PropertyRef Name="AttrId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="BlockInfoes" EntityType="Model.BlockInfo" />
+          <EntitySet Name="NavInfoes" EntityType="Model.NavInfo" />
+          <EntitySet Name="Articles" EntityType="Model.Article" />
+          <EntitySet Name="ArticleCategories" EntityType="Model.ArticleCategory" />
+          <EntitySet Name="Comments" EntityType="Model.Comment" />
+          <EntitySet Name="SinglePages" EntityType="Model.SinglePage" />
+          <EntitySet Name="Users" EntityType="Model.User" />
+          <EntitySet Name="Attachments" EntityType="Model.Attachment" />
+          <EntitySet Name="UserLoginHistories" EntityType="Model.UserLoginHistory" />
+          <AssociationSet Name="UserUserLoginHistory" Association="Model.UserUserLoginHistory">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserLoginHistory" EntitySet="UserLoginHistories" />
+          </AssociationSet>
+          <AssociationSet Name="ArticleCategoryArticle" Association="Model.ArticleCategoryArticle">
+            <End Role="ArticleCategory" EntitySet="ArticleCategories" />
+            <End Role="Article" EntitySet="Articles" />
+          </AssociationSet>
+          <EntitySet Name="Links" EntityType="Model.Link" />
+          <EntitySet Name="UserRights" EntityType="Model.UserRights" />
+          <EntitySet Name="AppExceptions" EntityType="Model.AppException" />
+          <EntitySet Name="ArticleAttributeDefinitions" EntityType="Model.ArticleAttributeDefinition" />
+          <EntitySet Name="ArticleAttributeValues" EntityType="Model.ArticleAttributeValue" />
+          <AssociationSet Name="ArticleAttributeDefinitionArticleAttributeValue" Association="Model.ArticleAttributeDefinitionArticleAttributeValue">
+            <End Role="ArticleAttributeDefinition" EntitySet="ArticleAttributeDefinitions" />
+            <End Role="ArticleAttributeValue" EntitySet="ArticleAttributeValues" />
+          </AssociationSet>
+          <EntitySet Name="Resources" EntityType="Model.Resource" />
+          <EntitySet Name="ResourceDirectories" EntityType="Model.ResourceDirectory" />
+          <EntitySet Name="UserGroups" EntityType="Model.UserGroup" />
+        </EntityContainer>
+        <EntityType Name="BlockInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="NavInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NavText" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="NavShortText" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="NavIcon" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="NavUri" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="NavType" Type="Model.NavType" Nullable="false" />
+          <Property Name="ContentType" Type="Model.ContentType" Nullable="false" />
+          <Property Name="ParentNavId" Type="Int32" Nullable="true" annotation:StoreGeneratedPattern="None" />
+          <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
+          <Property Name="IsHidden" Type="Boolean" Nullable="true" />
+          </EntityType>
+        <EnumType Name="NavType" UnderlyingType="Int16">
+          <Member Name="TopMenu" Value="0" />
+          <Member Name="SysApp" />
+          <Member Name="BottomMenu" />
+        </EnumType>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Pictures" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Views" Type="Int32" Nullable="false" />
+          <Property Name="EnableComment" Type="Boolean" Nullable="false" DefaultValue="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="EnableAttachment" Type="Boolean" Nullable="true" />
+          <Property Name="HasImageAttachments" Type="Boolean" Nullable="false" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="UserGroupId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ArticleCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="EnableComment" Type="Boolean" Nullable="false" DefaultValue="true" />
+          <Property Name="EnableAttachment" Type="Boolean" Nullable="false" />
+          <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RefCommentId" Type="Int32" Nullable="true" />
+          <Property Name="ClientIP" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="BOId" Type="Int32" Nullable="false" />
+          <Property Name="BOType" Type="Model.BusinessObjectType" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SinglePage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Views" Type="Int32" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="EnableComment" Type="Boolean" DefaultValue="true" Nullable="false" />
+          <Property Name="EnableAttachment" Type="Boolean" Nullable="true" />
+          <Property Name="HasImageAttachments" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EnumType Name="BusinessObjectType">
+          <Member Name="Article" Value="10" />
+          <Member Name="SinglePage" Value="20" />
+        </EnumType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginName" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Password" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="RealName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Role" Type="Model.UserRole" Nullable="false" />
+          <NavigationProperty Name="UserLoginHistories" Relationship="Model.UserUserLoginHistory" FromRole="User" ToRole="UserLoginHistory" />
+          <Property Name="GroupIds" Type="String" />
+          <Property Name="Enabled" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EnumType Name="UserRole">
+          <Member Name="Employee" Value="0" />
+          <Member Name="Administrator" Value="888" />
+          <Member Name="SuperAdministrator" Value="999" />
+        </EnumType>
+        <EntityType Name="Attachment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="FileExtensionName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="FilePath" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="UploadedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BOId" Type="Int32" annotation:StoreGeneratedPattern="None" Nullable="true" />
+          <Property Name="BOType" Type="Model.BusinessObjectType" Nullable="true" />
+          <Property Name="IsImage" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserLoginHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ClientIP" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Browser" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="LoggedOn" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="UserUserLoginHistory">
+          <End Type="Model.User" Role="User" Multiplicity="1" />
+          <End Type="Model.UserLoginHistory" Role="UserLoginHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserLoginHistory">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ArticleCategoryArticle">
+          <End Type="Model.ArticleCategory" Role="ArticleCategory" Multiplicity="1" />
+          <End Type="Model.Article" Role="Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArticleCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="ContentType" IsFlags="true">
+          <Member Name="Link" Value="10" />
+          <Member Name="SinglePage" Value="20" />
+          <Member Name="Article" Value="30" />
+          <Member Name="SysAppNavs" Value="100" />
+          <Member Name="Resource" Value="40" />
+        </EnumType>
+        <EntityType Name="Link">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="LinkUrl" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="LinkImage" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRights">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="BOId" Type="Int32" Nullable="false" />
+          <Property Name="BOType" Type="Model.BusinessObjectType" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AppException">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Url" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Detail" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="OccuredDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="ArticleAttributeDefinition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleCategoryId" Type="Int32" Nullable="false" />
+          <Property Name="AttrName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="InitialValue" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="AttrDescription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="DisplayOrder" Type="Int32" />
+          <NavigationProperty Name="ArticleAttributeValues" Relationship="Model.ArticleAttributeDefinitionArticleAttributeValue" FromRole="ArticleAttributeDefinition" ToRole="ArticleAttributeValue" />
+          <Property Name="ValueType" Type="Model.AttributeValueType" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ArticleAttributeValue">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleId" Type="Int32" Nullable="false" />
+          <Property Name="AttrId" Type="Int32" Nullable="false" />
+          <Property Name="AttrValue" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="ArticleAttributeDefinition" Relationship="Model.ArticleAttributeDefinitionArticleAttributeValue" FromRole="ArticleAttributeValue" ToRole="ArticleAttributeDefinition" />
+        </EntityType>
+        <Association Name="ArticleAttributeDefinitionArticleAttributeValue">
+          <End Type="Model.ArticleAttributeDefinition" Role="ArticleAttributeDefinition" Multiplicity="1" />
+          <End Type="Model.ArticleAttributeValue" Role="ArticleAttributeValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArticleAttributeDefinition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ArticleAttributeValue">
+              <PropertyRef Name="AttrId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="AttributeValueType">
+          <Member Name="Text" Value="0" />
+          <Member Name="ShortText" />
+          <Member Name="LongText" />
+          <Member Name="Html" />
+          <Member Name="Number" />
+          <Member Name="DateTime" />
+        </EnumType>
+        <EntityType Name="Resource">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FileExtensionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UploadBy" Type="Int32" />
+          <Property Name="UploadUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GroupIds" Type="String" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DirectoryId" Type="Int32" Nullable="true" />
+        </EntityType>
+        <EntityType Name="ResourceDirectory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DirectoryName" Type="String" Nullable="false" />
+          <Property Name="ParentDirectoryId" Type="Int32" Nullable="true" />
+          <Property Name="DepartmentId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
+    <EntitySetMapping Name="BlockInfoes">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.BlockInfo)">
+        <MappingFragment StoreEntitySet="BlockInfoes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NavInfoes">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.NavInfo)">
+        <MappingFragment StoreEntitySet="NavInfoes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NavText" ColumnName="NavText" />
+          <ScalarProperty Name="NavShortText" ColumnName="NavShortText" />
+          <ScalarProperty Name="NavIcon" ColumnName="NavIcon" />
+          <ScalarProperty Name="NavUri" ColumnName="NavUri" />
+          <ScalarProperty Name="NavType" ColumnName="NavType" />
+          <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+          <ScalarProperty Name="ParentNavId" ColumnName="ParentNavId" />
+          <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+          <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Articles">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Article)">
+        <MappingFragment StoreEntitySet="Articles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Pictures" ColumnName="Pictures" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Views" ColumnName="Views" />
+          <ScalarProperty Name="EnableComment" ColumnName="EnableComment" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="EnableAttachment" ColumnName="EnableAttachment" />
+          <ScalarProperty Name="HasImageAttachments" ColumnName="HasImageAttachments" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserGroupId" ColumnName="UserGroupId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArticleCategories">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.ArticleCategory)">
+        <MappingFragment StoreEntitySet="ArticleCategories">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EnableComment" ColumnName="EnableComment" />
+          <ScalarProperty Name="EnableAttachment" ColumnName="EnableAttachment" />
+          <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Comment)">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="RefCommentId" ColumnName="RefCommentId" />
+          <ScalarProperty Name="ClientIP" ColumnName="ClientIP" />
+          <ScalarProperty Name="BOId" ColumnName="BOId" />
+          <ScalarProperty Name="BOType" ColumnName="BOType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SinglePages">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.SinglePage)">
+        <MappingFragment StoreEntitySet="SinglePages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Views" ColumnName="Views" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="EnableComment" ColumnName="EnableComment" />
+          <ScalarProperty Name="EnableAttachment" ColumnName="EnableAttachment" />
+          <ScalarProperty Name="HasImageAttachments" ColumnName="HasImageAttachments" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="RealName" ColumnName="RealName" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="GroupIds" ColumnName="GroupIds" />
+          <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Attachments">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Attachment)">
+        <MappingFragment StoreEntitySet="Attachments">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="FileExtensionName" ColumnName="FileExtensionName" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="UploadedDate" ColumnName="UploadedDate" />
+          <ScalarProperty Name="BOId" ColumnName="BOId" />
+          <ScalarProperty Name="BOType" ColumnName="BOType" />
+          <ScalarProperty Name="IsImage" ColumnName="IsImage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserLoginHistories">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.UserLoginHistory)">
+        <MappingFragment StoreEntitySet="UserLoginHistories">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ClientIP" ColumnName="ClientIP" />
+          <ScalarProperty Name="Browser" ColumnName="Browser" />
+          <ScalarProperty Name="LoggedOn" ColumnName="LoggedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Links">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Link)">
+        <MappingFragment StoreEntitySet="Links">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="LinkUrl" ColumnName="LinkUrl" />
+          <ScalarProperty Name="LinkImage" ColumnName="LinkImage" />
+          <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRights">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.UserRights)">
+        <MappingFragment StoreEntitySet="UserRights">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="BOId" ColumnName="BOId" />
+          <ScalarProperty Name="BOType" ColumnName="BOType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppExceptions">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.AppException)">
+        <MappingFragment StoreEntitySet="AppExceptions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Detail" ColumnName="Detail" />
+          <ScalarProperty Name="OccuredDate" ColumnName="OccuredDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArticleAttributeDefinitions">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.ArticleAttributeDefinition)">
+        <MappingFragment StoreEntitySet="ArticleAttributeDefinitions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ArticleCategoryId" ColumnName="ArticleCategoryId" />
+          <ScalarProperty Name="AttrName" ColumnName="AttrName" />
+          <ScalarProperty Name="InitialValue" ColumnName="InitialValue" />
+          <ScalarProperty Name="AttrDescription" ColumnName="AttrDescription" />
+          <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+          <ScalarProperty Name="ValueType" ColumnName="ValueType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArticleAttributeValues">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.ArticleAttributeValue)">
+        <MappingFragment StoreEntitySet="ArticleAttributeValues">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+          <ScalarProperty Name="AttrId" ColumnName="AttrId" />
+          <ScalarProperty Name="AttrValue" ColumnName="AttrValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Resources">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Resource)">
+        <MappingFragment StoreEntitySet="Resources">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="FileExtensionName" ColumnName="FileExtensionName" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UploadBy" ColumnName="UploadBy" />
+          <ScalarProperty Name="UploadUser" ColumnName="UploadUser" />
+          <ScalarProperty Name="GroupIds" ColumnName="GroupIds" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="DirectoryId" ColumnName="DirectoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ResourceDirectories">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.ResourceDirectory)">
+        <MappingFragment StoreEntitySet="ResourceDirectories">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DirectoryName" ColumnName="DirectoryName" />
+          <ScalarProperty Name="ParentDirectoryId" ColumnName="ParentDirectoryId" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserGroups">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.UserGroup)">
+        <MappingFragment StoreEntitySet="UserGroups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
