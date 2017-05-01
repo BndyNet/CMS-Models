@@ -7,7 +7,7 @@
     <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="ModelStoreContainer">
     <EntitySet Name="BlockInfoes" EntityType="Model.Store.BlockInfoes" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="NavInfoes" EntityType="Model.Store.NavInfoes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Menus" EntityType="Model.Store.Menus" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Articles" EntityType="Model.Store.Articles" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ArticleCategories" EntityType="Model.Store.ArticleCategories" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Comments" EntityType="Model.Store.Comments" store:Type="Tables" Schema="dbo" />
@@ -44,20 +44,20 @@
     <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
-  <EntityType Name="NavInfoes">
+  <EntityType Name="Menus">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="NavText" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="NavShortText" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="NavIcon" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="NavUri" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="NavType" Type="smallint" Nullable="false" />
+    <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ShortText" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Icon" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Uri" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Category" Type="smallint" Nullable="false" />
     <Property Name="ContentType" Type="int" Nullable="false" />
-    <Property Name="ParentNavId" Type="int" Nullable="true" />
+    <Property Name="ParentId" Type="int" Nullable="true" />
     <Property Name="DisplayOrder" Type="int" Nullable="false" />
-    <Property Name="IsHidden" Type="bit" Nullable="true" />
+    <Property Name="IsHidden" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Articles">
     <Key>
@@ -219,7 +219,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DirectoryName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ParentDirectoryId" Type="int" Nullable="true" />
-    <Property Name="DepartmentId" Type="int" Nullable="false" />
+    <Property Name="UserGroupId" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="UserGroups">
     <Key>
@@ -270,7 +270,7 @@
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="false">
           <EntitySet Name="BlockInfoes" EntityType="Model.BlockInfo" />
-          <EntitySet Name="NavInfoes" EntityType="Model.NavInfo" />
+          <EntitySet Name="Menus" EntityType="Model.Menu" />
           <EntitySet Name="Articles" EntityType="Model.Article" />
           <EntitySet Name="ArticleCategories" EntityType="Model.ArticleCategory" />
           <EntitySet Name="Comments" EntityType="Model.Comment" />
@@ -307,25 +307,26 @@
           <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
         </EntityType>
-        <EntityType Name="NavInfo">
+        <EntityType Name="Menu">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NavText" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="NavShortText" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="NavIcon" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="NavUri" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="NavType" Type="Model.NavType" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ShortText" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Icon" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Uri" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Category" Type="Model.MenuCategory" Nullable="false" />
           <Property Name="ContentType" Type="Model.ContentType" Nullable="false" />
-          <Property Name="ParentNavId" Type="Int32" Nullable="true" annotation:StoreGeneratedPattern="None" />
+          <Property Name="ParentId" Type="Int32" Nullable="true" annotation:StoreGeneratedPattern="None" />
           <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
-          <Property Name="IsHidden" Type="Boolean" Nullable="true" />
+          <Property Name="IsHidden" Type="Boolean" Nullable="false" />
           </EntityType>
-        <EnumType Name="NavType" UnderlyingType="Int16">
-          <Member Name="TopMenu" Value="0" />
-          <Member Name="SysApp" />
-          <Member Name="BottomMenu" />
+        <EnumType Name="MenuCategory" UnderlyingType="Int16">
+          <Member Name="Main" Value="0" />
+          <Member Name="Secondary" />
+          <Member Name="Third" />
+          <Member Name="Fourth" />
         </EnumType>
         <EntityType Name="Article">
           <Key>
@@ -453,7 +454,6 @@
           <Member Name="Link" Value="10" />
           <Member Name="SinglePage" Value="20" />
           <Member Name="Article" Value="30" />
-          <Member Name="SysAppNavs" Value="100" />
           <Member Name="Resource" Value="40" />
         </EnumType>
         <EntityType Name="Link">
@@ -550,7 +550,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DirectoryName" Type="String" Nullable="false" />
           <Property Name="ParentDirectoryId" Type="Int32" Nullable="true" />
-          <Property Name="DepartmentId" Type="Int32" Nullable="false" />
+          <Property Name="UserGroupId" Type="Int32" Nullable="true" />
         </EntityType>
         <EntityType Name="UserGroup">
           <Key>
@@ -574,17 +574,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="NavInfoes">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.NavInfo)">
-        <MappingFragment StoreEntitySet="NavInfoes">
+    <EntitySetMapping Name="Menus">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Menu)">
+        <MappingFragment StoreEntitySet="Menus">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="NavText" ColumnName="NavText" />
-          <ScalarProperty Name="NavShortText" ColumnName="NavShortText" />
-          <ScalarProperty Name="NavIcon" ColumnName="NavIcon" />
-          <ScalarProperty Name="NavUri" ColumnName="NavUri" />
-          <ScalarProperty Name="NavType" ColumnName="NavType" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="ShortText" ColumnName="ShortText" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="Uri" ColumnName="Uri" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
           <ScalarProperty Name="ContentType" ColumnName="ContentType" />
-          <ScalarProperty Name="ParentNavId" ColumnName="ParentNavId" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
           <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
           <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
         </MappingFragment>
@@ -762,7 +762,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="DirectoryName" ColumnName="DirectoryName" />
           <ScalarProperty Name="ParentDirectoryId" ColumnName="ParentDirectoryId" />
-          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="UserGroupId" ColumnName="UserGroupId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

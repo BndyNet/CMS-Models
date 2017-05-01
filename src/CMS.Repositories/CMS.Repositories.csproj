@@ -61,7 +61,7 @@
     <Compile Include="CommentRepository.cs" />
     <Compile Include="UserGroupRepository.cs" />
     <Compile Include="LinkRepository.cs" />
-    <Compile Include="NavRepository.cs" />
+    <Compile Include="MenuRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="ResourceRepository.cs" />

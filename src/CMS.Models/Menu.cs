@@ -12,17 +12,17 @@ namespace CMS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class NavInfo
+    public partial class Menu
     {
         public int Id { get; set; }
-        public string NavText { get; set; }
-        public string NavShortText { get; set; }
-        public string NavIcon { get; set; }
-        public string NavUri { get; set; }
-        public NavType NavType { get; set; }
+        public string Text { get; set; }
+        public string ShortText { get; set; }
+        public string Icon { get; set; }
+        public string Uri { get; set; }
+        public MenuCategory Category { get; set; }
         public ContentType ContentType { get; set; }
-        public Nullable<int> ParentNavId { get; set; }
+        public Nullable<int> ParentId { get; set; }
         public int DisplayOrder { get; set; }
-        public Nullable<bool> IsHidden { get; set; }
+        public bool IsHidden { get; set; }
     }
 }

@@ -11,10 +11,11 @@ namespace CMS.Models
 {
     using System;
     
-    public enum NavType : short
+    public enum MenuCategory : short
     {
-        TopMenu = 0,
-        SysApp = 1,
-        BottomMenu = 2
+        Main = 0,
+        Secondary = 1,
+        Third = 2,
+        Fourth = 3
     }
 }

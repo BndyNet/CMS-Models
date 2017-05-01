@@ -27,20 +27,20 @@ namespace CMS.Repositories
         }
 
 
-        private static List<NavInfo> _navs;
-        public static List<NavInfo> Navs
+        private static List<Menu> _menus;
+        public static List<Menu> Menus
         {
             get
             {
-                if (_navs == null)
+                if (_menus == null)
                 {
-                    _navs = new NavRepository().GetNavs();
+                    _menus = new MenuRepository().GetMenus();
                 }
-                return _navs;
+                return _menus;
             }
             set
             {
-                _navs = value;
+                _menus = value;
             }
         }
 

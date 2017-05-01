@@ -30,10 +30,10 @@ namespace CMS.Repositories
         {
             return this.DbContext.Resources.Count(__ => __.GroupIds != null && __.GroupIds.Contains("|" + userGroupId + "|"));
         }
-        public List<ResourceDirectory> GetDirs(int deptId)
+        public List<ResourceDirectory> GetDirs(int? userGroupId)
         {
             var result = new List<ResourceDirectory>();
-            var items = this.DbContext.ResourceDirectories.Where(__ => __.DepartmentId == deptId).ToList();
+            var items = this.DbContext.ResourceDirectories.Where(__ => __.UserGroupId == userGroupId).ToList();
             Action<IEnumerable<ResourceDirectory>, int> setLayers = null;
             setLayers = (dirs, layer) =>
             {

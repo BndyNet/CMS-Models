@@ -82,7 +82,7 @@ namespace CMS.Repositories
         public List<ArticleCategory> GetCategories(string groupOrCategory)
         {
             return this.DbContext.ArticleCategories
-                .Where(__ => __.GroupName == groupOrCategory || __.Name == groupOrCategory)
+                .Where(__ => __.Name == groupOrCategory)
                 .OrderBy(__ => __.DisplayOrder)
                 .ToList();
         }
@@ -157,10 +157,10 @@ namespace CMS.Repositories
 
             return result;
         }
-        public List<Article> GetTopModels(int top, string categoryOrGroup, out ArticleCategory category)
+        public List<Article> GetTopModels(int top, string categoryName, out ArticleCategory category)
         {
             var result = new List<Article>();
-            category = this.DbContext.ArticleCategories.FirstOrDefault(__ => __.Name == categoryOrGroup);
+            category = this.DbContext.ArticleCategories.FirstOrDefault(__ => __.Name == categoryName);
 
             if (category != null)
             {
@@ -174,7 +174,7 @@ namespace CMS.Repositories
             else
             {
                 var categoryIds = this.DbContext.ArticleCategories
-                    .Where(__ => __.GroupName == categoryOrGroup)
+                    .Where(__ => __.Name == categoryName)
                     .Select(__ => __.Id)
                     .ToList();
 

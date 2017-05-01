@@ -27,7 +27,7 @@ namespace CMS.Models
         }
     
         public virtual DbSet<BlockInfo> BlockInfoes { get; set; }
-        public virtual DbSet<NavInfo> NavInfoes { get; set; }
+        public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<Article> Articles { get; set; }
         public virtual DbSet<ArticleCategory> ArticleCategories { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }

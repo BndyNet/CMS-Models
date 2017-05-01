@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/21/2017 23:51:58
+-- Date Created: 05/01/2017 22:57:20
 -- Generated from EDMX file: G:\Git\CMS-Models\src\CMS.Models\Model.edmx
 -- --------------------------------------------------
 
@@ -34,8 +34,8 @@ GO
 IF OBJECT_ID(N'[dbo].[BlockInfoes]', 'U') IS NOT NULL
     DROP TABLE [dbo].[BlockInfoes];
 GO
-IF OBJECT_ID(N'[dbo].[NavInfoes]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[NavInfoes];
+IF OBJECT_ID(N'[dbo].[Menus]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Menus];
 GO
 IF OBJECT_ID(N'[dbo].[Articles]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Articles];
@@ -95,18 +95,18 @@ CREATE TABLE [dbo].[BlockInfoes] (
 );
 GO
 
--- Creating table 'NavInfoes'
-CREATE TABLE [dbo].[NavInfoes] (
+-- Creating table 'Menus'
+CREATE TABLE [dbo].[Menus] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [NavText] nvarchar(max)  NOT NULL,
-    [NavShortText] nvarchar(max)  NULL,
-    [NavIcon] nvarchar(max)  NULL,
-    [NavUri] nvarchar(max)  NULL,
-    [NavType] smallint  NOT NULL,
+    [Text] nvarchar(max)  NOT NULL,
+    [ShortText] nvarchar(max)  NULL,
+    [Icon] nvarchar(max)  NULL,
+    [Uri] nvarchar(max)  NULL,
+    [Category] smallint  NOT NULL,
     [ContentType] int  NOT NULL,
-    [ParentNavId] int  NULL,
+    [ParentId] int  NULL,
     [DisplayOrder] int  NOT NULL,
-    [IsHidden] bit  NULL
+    [IsHidden] bit  NOT NULL
 );
 GO
 
@@ -268,7 +268,7 @@ CREATE TABLE [dbo].[ResourceDirectories] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [DirectoryName] nvarchar(max)  NOT NULL,
     [ParentDirectoryId] int  NULL,
-    [DepartmentId] int  NOT NULL
+    [UserGroupId] int  NULL
 );
 GO
 
@@ -289,9 +289,9 @@ ADD CONSTRAINT [PK_BlockInfoes]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'NavInfoes'
-ALTER TABLE [dbo].[NavInfoes]
-ADD CONSTRAINT [PK_NavInfoes]
+-- Creating primary key on [Id] in table 'Menus'
+ALTER TABLE [dbo].[Menus]
+ADD CONSTRAINT [PK_Menus]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

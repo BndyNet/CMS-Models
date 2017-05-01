@@ -17,6 +17,6 @@ namespace CMS.Models
         public int Id { get; set; }
         public string DirectoryName { get; set; }
         public Nullable<int> ParentDirectoryId { get; set; }
-        public int DepartmentId { get; set; }
+        public Nullable<int> UserGroupId { get; set; }
     }
 }

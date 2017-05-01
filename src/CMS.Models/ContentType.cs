@@ -17,7 +17,6 @@ namespace CMS.Models
         Link = 10,
         SinglePage = 20,
         Article = 30,
-        SysAppNavs = 100,
         Resource = 40
     }
 }

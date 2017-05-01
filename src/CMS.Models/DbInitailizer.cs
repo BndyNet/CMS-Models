@@ -13,12 +13,27 @@ namespace CMS.Models
 
     public class DbInitializer
     {
-        public static string HashSeed;
-
         static DbInitializer()
         {
-            HashSeed = "admin";
         }
+
+        public static void InitMenus(List<Menu> menus, ModelContainer container)
+        {
+            for (var idx = 0; idx < menus.Count; idx++)
+            {
+                var item = menus[idx];
+                item = container.Menus.Add(item);
+                container.SaveChanges();
+
+                foreach (var child in item.Children)
+                {
+                    child.ParentId = item.Id;
+                }
+
+                InitMenus(item.Children, container);
+            }
+        }
+
         public static void Init()
         {
             using (var container = new ModelContainer())
@@ -29,34 +44,29 @@ namespace CMS.Models
                 container.Database.CreateIfNotExists();
 
                 #region Administrator
-                container.Users.Add(new User()
-                {
-                    RealName = HashSeed,
-                    LoginName = HashSeed,
-                    Password = Cryptography.Hash(HashSeed + "123456", HashSeed),
-                    Role = UserRole.SuperAdministrator,
-                    Enabled = true,
-                });
+                container.Users.Add(SeedData.SupperAdmin);
                 container.SaveChanges();
                 #endregion Administrator
 
                 #region Initialize Nav Contents
-                var dataDirectoryName = "Basedata";
-                var navs = container.NavInfoes
+                InitMenus(SeedData.Menus, container);
+
+                var dataDirectoryName = "App_Data\\Seed";
+                var menus = container.Menus
                     .Where(__ => __.ContentType == ContentType.Article || __.ContentType == ContentType.SinglePage)
                     .ToList();
-                foreach (var nav in navs)
+                foreach (var menu in menus)
                 {
-                    NavInfo parent = null;
-                    if (nav.ParentNavId.HasValue)
+                    Menu parent = null;
+                    if (menu.ParentId.HasValue)
                     {
-                        parent = container.NavInfoes.FirstOrDefault(__ => __.Id == nav.ParentNavId);
+                        parent = container.Menus.FirstOrDefault(__ => __.Id == menu.ParentId);
                     }
-                    switch (nav.ContentType)
+                    switch (menu.ContentType)
                     {
                         case ContentType.Article:
                             var ac = new ArticleCategory();
-                            ac.Name = nav.NavText;
+                            ac.Name = menu.Text;
                             ac.EnableAttachment = true;
                             ac.EnableComment = true;
 
@@ -132,12 +142,12 @@ namespace CMS.Models
                                 container.SaveChanges();
                             }
 
-                            nav.NavUri = string.Format("/article/list/{0}", ac.Id);
+                            menu.Uri = string.Format("/article/list/{0}", ac.Id);
                             break;
 
                         case ContentType.SinglePage:
                             var sp = new SinglePage();
-                            sp.Title = nav.NavText;
+                            sp.Title = menu.Text;
 
                             sp.EnableAttachment = false;
                             sp.EnableComment = false;
@@ -176,7 +186,7 @@ namespace CMS.Models
                                 }
                                 container.SaveChanges();
                             }
-                            nav.NavUri = string.Format("/page/index/{0}", sp.Id);
+                            menu.Uri = string.Format("/page/index/{0}", sp.Id);
                             break;
                     }
                 }

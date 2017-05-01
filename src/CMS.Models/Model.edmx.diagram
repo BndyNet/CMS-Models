@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="4f2e8889417a4662bdf6d87ea38c2d57" Name="Diagram1" DisplayType="true" ZoomLevel="111" >
         <EntityTypeShape EntityType="Model.BlockInfo" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Model.NavInfo" Width="2.25" PointX="0.5" PointY="9.25" />
+        <EntityTypeShape EntityType="Model.Menu" Width="2.25" PointX="0.5" PointY="9.25" />
         <EntityTypeShape EntityType="Model.Article" Width="2" PointX="3.125" PointY="5.375" />
         <EntityTypeShape EntityType="Model.ArticleCategory" Width="1.875" PointX="0.5" PointY="5.875" />
         <EntityTypeShape EntityType="Model.Comment" Width="2" PointX="3.25" PointY="9.25" />

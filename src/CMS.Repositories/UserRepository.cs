@@ -14,7 +14,7 @@ namespace CMS.Repositories
     {
         public User Get(string name, string pwd)
         {
-            pwd = Cryptography.Hash(pwd, DbInitializer.HashSeed);
+            pwd = Cryptography.Hash(pwd, SeedData.HashSeed);
             return this.DbContext.Users
                 .FirstOrDefault(__ => (
                     __.LoginName.Equals(name, StringComparison.OrdinalIgnoreCase)
@@ -42,7 +42,7 @@ namespace CMS.Repositories
             var u = this.DbContext.Users.FirstOrDefault(__ => __.Id == userId);
             if (u != null)
             {
-                u.Password = Cryptography.Hash(newPwd, DbInitializer.HashSeed);
+                u.Password = Cryptography.Hash(newPwd, SeedData.HashSeed);
                 this.DbContext.SaveChanges();
             }
         }
@@ -86,13 +86,13 @@ namespace CMS.Repositories
                 u.Enabled = user.Enabled;
                 if (!string.IsNullOrWhiteSpace(user.Password))
                 {
-                    u.Password = Cryptography.Hash(user.Password, DbInitializer.HashSeed);
+                    u.Password = Cryptography.Hash(user.Password, SeedData.HashSeed);
                 }
             }
             else
             {
                 user.Role = UserRole.Employee;
-                user.Password = Cryptography.Hash(user.Password, DbInitializer.HashSeed);
+                user.Password = Cryptography.Hash(user.Password, SeedData.HashSeed);
                 this.DbContext.Users.Add(user);
             }
 
